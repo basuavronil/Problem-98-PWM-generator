@@ -52,3 +52,10 @@ $$\text{Duty Cycle (\%)} = \left( \frac{\text{duty}}{256} \right) \times 100$$
 * **`duty = 8'd255`** $\rightarrow$ **99.6% Duty Cycle**
 
 ---
+
+## Output 
+### Simulation Terminal 
+<img width="645" height="303" alt="image" src="https://github.com/user-attachments/assets/555ee09f-85d1-4341-a2de-b76b830e2946" />
+### Waveform
+<img width="926" height="273" alt="image" src="https://github.com/user-attachments/assets/4d2f7097-e54f-4619-b28c-c85ba00f319e" />
+
