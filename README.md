@@ -9,51 +9,39 @@ When the internal counter value is strictly less than the target duty threshold,
 
 ### Hardware Architecture & Waveform
 ## Block Diagram
+
 ```mermaid
 flowchart LR
-    subgraph PWM_GEN["PWM Generator"]
+    subgraph PWM_GEN["pwm_generator"]
         direction TB
-        CNT["counter_reg\n(up-counter)"]
-        DUTY["duty_reg\n(duty cycle value)"]
-        PER["period_reg\n(period value)"]
-        CMP["comparator\n(counter vs duty)"]
-        OUTREG["pwm_out_reg"]
+        CNT["counter (reg [7:0])\nfree-running 0-255"]
+        CMP["comparator\n(counter < duty)"]
+        OUTREG["pwm_out (reg)"]
 
-        CNT --> CMP
-        DUTY --> CMP
-        PER --> CNT
-        CMP --> OUTREG
+        CNT -->|counter| CMP
+        CMP -->|next value| OUTREG
     end
 
     CLK((clk)) --> PWM_GEN
-    RSTN((rst_n)) --> PWM_GEN
-    EN((enable)) --> PWM_GEN
-    DUTY_IN["duty_cycle[N:0]"] --> PWM_GEN
-    PERIOD_IN["period[N:0]"] --> PWM_GEN
-    PWM_GEN --> PWM_OUT(("pwm_out"))
+    RST((rst)) --> PWM_GEN
+    DUTY["duty[7:0]"] --> PWM_GEN
+    PWM_GEN --> PWMOUT(("pwm_out"))
 ```
 
 ### Ports
 
-| Port          | Direction | Width  | Description                              |
-|---------------|-----------|--------|-------------------------------------------|
-| `clk`         | Input     | 1 bit  | System clock                              |
-| `rst_n`       | Input     | 1 bit  | Active-low asynchronous reset             |
-| `enable`      | Input     | 1 bit  | Enables PWM operation                     |
-| `duty_cycle`  | Input     | N bits | Desired duty cycle value                  |
-| `period`      | Input     | N bits | PWM period (counter max value)            |
-| `pwm_out`     | Output    | 1 bit  | Generated PWM waveform                    |
+| Port      | Direction | Width  | Description                          |
+|-----------|-----------|--------|---------------------------------------|
+| `clk`     | Input     | 1 bit  | System clock                          |
+| `rst`     | Input     | 1 bit  | Active-high reset                     |
+| `duty`    | Input     | 8 bits | Duty cycle threshold value            |
+| `pwm_out` | Output    | 1 bit  | Generated PWM signal (registered)     |
 
 ### Internal Registers
 
-| Register       | Width  | Description                                      |
-|----------------|--------|---------------------------------------------------|
-| `counter_reg`  | N bits | Free-running/up-counter, resets at `period_reg`   |
-| `duty_reg`     | N bits | Latched duty cycle value used for comparison      |
-| `period_reg`   | N bits | Latched period value                              |
-| `pwm_out_reg`  | 1 bit  | Registered output driving `pwm_out`               |
-
-### Duty Cycle Calculation
+| Register  | Width  | Description                                              |
+|-----------|--------|------------------------------------------------------------|
+| `counter` | 8 bits | Free-running up-counter, counts 0 to 255, wraps on overflow |### Duty Cycle Calculation
 
 The duty cycle percentage is given by the formula:
 
