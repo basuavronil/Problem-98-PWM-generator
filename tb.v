@@ -1,13 +1,3 @@
-| Signal Name | New Name | Meaning |
-| :--- | :--- | :--- |
-| `duty` | **`on_time`** | Number of clock cycles the output stays **HIGH** (1) out of 256. |
-| *(Implicit)* | **`256 - on_time`** | Number of clock cycles the output stays **LOW** (0) out of 256. |
-
----
-
-### **2. Updated Testbench with Terminal Monitor**
-
-```verilog
 `timescale 1ns / 1ps
 
 module tb_pwm;
