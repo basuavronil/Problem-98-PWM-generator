@@ -62,7 +62,8 @@ $$\text{Duty Cycle (\%)} = \left( \frac{\text{duty}}{256} \right) \times 100$$
 ### PWM Signal Timing Diagram (`on_time = 3`)
 <img width="503" height="100" alt="image" src="https://github.com/user-attachments/assets/c96f38a5-48cb-4b25-b08a-20ab35d946da" />
 
-![Uploading image.png…]()
+<img width="500" height="161" alt="image" src="https://github.com/user-attachments/assets/024686a3-4769-4895-ba5b-ec43287a38ca" />
+
 
 
 
