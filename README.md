@@ -14,7 +14,7 @@ When the internal counter value is strictly less than the target duty threshold,
                 +--------------------+
 counter [7:0] ->|                    |
                 | Magnitude Comp.    |---> Comparator Output
-   duty [7:0] ->| (counter < duty)   |      (Select Line)
+on time [7:0] ->| (counter < on time)|      (Select Line)
                 +--------------------+           |
                                                  v
                                           +-----------+
@@ -32,7 +32,7 @@ just make this graphical ... and in a copyablw way for github
 |-----------|-----------|--------|---------------------------------------|
 | `clk`     | Input     | 1 bit  | System clock                          |
 | `rst`     | Input     | 1 bit  | Active-high reset                     |
-| `duty`    | Input     | 8 bits | Duty cycle threshold value            |
+| `on time` | Input     | 8 bits | Duty cycle threshold value            |
 | `pwm_out` | Output    | 1 bit  | Generated PWM signal (registered)     |
 
 ### Internal Registers
