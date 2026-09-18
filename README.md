@@ -9,7 +9,6 @@ When the internal counter value is strictly less than the target duty threshold,
 
 ### Hardware Architecture & Waveform
 ## Block Diagram
-
 ```mermaid
 flowchart LR
     subgraph PWM_GEN["PWM Generator"]
@@ -53,17 +52,6 @@ flowchart LR
 | `duty_reg`     | N bits | Latched duty cycle value used for comparison      |
 | `period_reg`   | N bits | Latched period value                              |
 | `pwm_out_reg`  | 1 bit  | Registered output driving `pwm_out`               |
-
-### Module Ports & Signals
-
-| Signal Name | Direction | Bit Width | Description |
-| :--- | :--- | :--- | :--- |
-| `clk` | Input | 1-bit | System clock signal driving the counter |
-| `rst` | Input | 1-bit | Active-high asynchronous reset signal |
-| `duty` | Input | 8-bit (`[7:0]`) | Input threshold determining the active-high pulse duration (0–255) |
-| `pwm_out` | Output | 1-bit | Generated PWM square-wave signal |
-
----
 
 ### Duty Cycle Calculation
 
