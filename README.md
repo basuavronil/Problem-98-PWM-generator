@@ -60,9 +60,9 @@ $$\text{Duty Cycle (\%)} = \left( \frac{\text{duty}}{256} \right) \times 100$$
 <img width="926" height="273" alt="image" src="https://github.com/user-attachments/assets/4d2f7097-e54f-4619-b28c-c85ba00f319e" />
 
 ### PWM Signal Timing Diagram (`on_time = 3`)
-* Clock Edge:    1   2   3   4   5   6   7   ...
-* Counter:       0   1   2   3   4   5   6   ...
-* Condition:    [counter < 3] [counter >= 3]
-* pwm_out:       1   1   1   0   0   0   0   ...
-*                <-- HIGH -> <--- LOW ----->
+<img width="503" height="100" alt="image" src="https://github.com/user-attachments/assets/c96f38a5-48cb-4b25-b08a-20ab35d946da" />
+
+![Uploading image.png…]()
+
+
 
