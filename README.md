@@ -9,24 +9,7 @@ When the internal counter value is strictly less than the target duty threshold,
 
 ### Hardware Architecture & Waveform
 ## Block Diagram
-
-```mermaid
-flowchart LR
-    subgraph PWM_GEN["pwm_generator"]
-        direction TB
-        CNT["counter (reg [7:0])\nfree-running 0-255"]
-        CMP["comparator\n(counter < duty)"]
-        OUTREG["pwm_out (reg)"]
-
-        CNT -->|counter| CMP
-        CMP -->|next value| OUTREG
-    end
-
-    CLK((clk)) --> PWM_GEN
-    RST((rst)) --> PWM_GEN
-    DUTY["duty[7:0]"] --> PWM_GEN
-    PWM_GEN --> PWMOUT(("pwm_out"))
-```
+just make this graphical ... and in a copyablw way for github
 
 ### Ports
 
