@@ -35,6 +35,11 @@ just make this graphical ... and in a copyablw way for github
 | `on time` | Input     | 8 bits | Duty cycle threshold value            |
 | `pwm_out` | Output    | 1 bit  | Generated PWM signal (registered)     |
 
+### PWM Signal Timing Diagram 
+<img width="503" height="100" alt="image" src="https://github.com/user-attachments/assets/c96f38a5-48cb-4b25-b08a-20ab35d946da" />
+
+<img width="500" height="161" alt="image" src="https://github.com/user-attachments/assets/024686a3-4769-4895-ba5b-ec43287a38ca" />
+
 ### Internal Registers
 
 | Register  | Width  | Description                                              |
@@ -59,10 +64,7 @@ $$\text{Duty Cycle (\%)} = \left( \frac{\text{duty}}{256} \right) \times 100$$
 ### Waveform
 <img width="926" height="273" alt="image" src="https://github.com/user-attachments/assets/4d2f7097-e54f-4619-b28c-c85ba00f319e" />
 
-### PWM Signal Timing Diagram (`on_time = 3`)
-<img width="503" height="100" alt="image" src="https://github.com/user-attachments/assets/c96f38a5-48cb-4b25-b08a-20ab35d946da" />
 
-<img width="500" height="161" alt="image" src="https://github.com/user-attachments/assets/024686a3-4769-4895-ba5b-ec43287a38ca" />
 
 
 
