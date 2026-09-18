@@ -1,3 +1,13 @@
+| Signal Name | New Name | Meaning |
+| :--- | :--- | :--- |
+| `duty` | **`on_time`** | Number of clock cycles the output stays **HIGH** (1) out of 256. |
+| *(Implicit)* | **`256 - on_time`** | Number of clock cycles the output stays **LOW** (0) out of 256. |
+
+---
+
+### **2. Updated Testbench with Terminal Monitor**
+
+```verilog
 `timescale 1ns / 1ps
 
 module tb_pwm;
@@ -5,59 +15,51 @@ module tb_pwm;
     // Testbench Signals
     reg        clk;
     reg        rst;
-    reg  [7:0] duty;
+    reg  [7:0] on_time;
     wire       pwm_out;
 
-    // Instantiate the Unit Under Test (UUT)
+    // Instantiate Unit Under Test (UUT)
     pwm uut (
         .clk(clk),
         .rst(rst),
-        .duty(duty),
+        .on_time(on_time),
         .pwm_out(pwm_out)
     );
 
     // Clock Generation (100 MHz clock -> 10ns period)
     always #5 clk = ~clk;
 
-    // Main Stimulus and Execution
+    // Main Test Execution
     initial begin
         // Initialize Inputs
-        clk  = 0;
-        rst  = 0; // Active-low reset asserted
-        duty = 0;
+        clk     = 0;
+        rst     = 0; // Assert Active-low reset
+        on_time = 0;
 
-        // Waveform Dumping (.vcd for GTKWave / EDA Playground)
+        // Waveform Dumping
         $dumpfile("pwm_waveform.vcd");
         $dumpvars(0, tb_pwm);
 
-        // Terminal Monitoring
-        $monitor("Time = %0t ns | rst = %b | duty = %3d | pwm_out = %b", 
-                 $time, rst, duty, pwm_out);
+        // Terminal Monitoring - Easily track ON vs OFF duration
+        $monitor("Time = %0t ns | rst = %b | ON Ticks = %3d | OFF Ticks = %3d | pwm_out = %b", 
+                 $time, rst, on_time, (256 - on_time), pwm_out);
 
-        // --- Step 1: Assert Reset ---
+        // De-assert reset
         #20;
-        rst = 1; // De-assert reset (active-low)
+        rst = 1;
         #10;
 
-        // --- Step 2: Test 25% Duty Cycle (duty = 64) ---
-        duty = 8'd64;
-        #(256 * 10 * 2); // Run for 2 full PWM cycles (256 counts * 10ns clock * 2)
+        // --- Test 1: 50% Duty (128 ticks ON, 128 ticks OFF) ---
+        on_time = 8'd128;
+        #(256 * 10 * 2); // Observe 2 complete PWM cycles
 
-        // --- Step 3: Test 50% Duty Cycle (duty = 128) ---
-        duty = 8'd128;
+        // --- Test 2: 25% Duty (64 ticks ON, 192 ticks OFF) ---
+        on_time = 8 me= 8'd64;
         #(256 * 10 * 2);
 
-        // --- Step 4: Test 75% Duty Cycle (duty = 192) ---
-        duty = 8'd192;
+        // --- Test 3: 75% Duty (192 ticks ON, 64 ticks OFF) ---
+        on_time = 8'd192;
         #(256 * 10 * 2);
-
-        // --- Step 5: Test 0% Duty Cycle (duty = 0) ---
-        duty = 8'd0;
-        #(256 * 10);
-
-        // --- Step 6: Test ~100% Duty Cycle (duty = 255) ---
-        duty = 8'd255;
-        #(256 * 10);
 
         $display("\n--- Simulation Complete ---");
         $finish;
