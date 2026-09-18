@@ -14,9 +14,9 @@ When the internal counter value is strictly less than the target duty threshold,
                 +--------------------+
 counter [7:0] ->|                    |
                 | Magnitude Comp.    |---> Comparator Output
-    duty [7:0] ->| (counter < duty)   |      (Select Line)
-                +--------------------+            |
-                                                   v
+   duty [7:0] ->| (counter < duty)   |      (Select Line)
+                +--------------------+           |
+                                                 v
                                           +-----------+
                        1'b1 ------------->| 1         |
                                           |   2:1 MUX |---> pwm_out (reg)
