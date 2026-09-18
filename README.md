@@ -9,6 +9,21 @@ When the internal counter value is strictly less than the target duty threshold,
 
 ### Hardware Architecture & Waveform
 ## Block Diagram
+
+```
+                +--------------------+
+counter [7:0] ->|                    |
+                | Magnitude Comp.    |---> Comparator Output
+    duty [7:0] ->| (counter < duty)   |      (Select Line)
+                +--------------------+            |
+                                                   v
+                                          +-----------+
+                       1'b1 ------------->| 1         |
+                                          |   2:1 MUX |---> pwm_out (reg)
+                       1'b0 ------------->| 0         |
+                                          +-----------+
+```
+## Block Diagram
 just make this graphical ... and in a copyablw way for github
 
 ### Ports
